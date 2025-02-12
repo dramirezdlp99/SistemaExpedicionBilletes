@@ -1,5 +1,5 @@
 public class DispensadorBoletos {
-    public void dispensarBoleto(String destino) {
-        System.out.println("Boleto para " + destino + " dispensado.");
+    public static void expedir(String destino) {
+        System.out.println("✅ ¡Boleto emitido para " + destino + "! ¡Buen viaje! 🚆");
     }
 }

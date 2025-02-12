@@ -1,26 +1,25 @@
 public class Main {
     public static void main(String[] args) {
-        InterfazUsuario interfaz = new InterfazUsuario();
-        LectorTarjeta lectorTarjeta = new LectorTarjeta();
-        ProcesadorPago procesadorPago = new ProcesadorPago();
-        SeleccionProducto seleccionProducto = new SeleccionProducto();
-        DispensadorBoletos dispensador = new DispensadorBoletos();
-        RegistroTransacciones registro = new RegistroTransacciones();
-        ImpresoraBoletos impresora = new ImpresoraBoletos();
+        // Seleccionar destino
+        String destino = SeleccionDestino.seleccionar();
+        double precio = SeleccionDestino.obtenerPrecio(destino);
 
-        interfaz.mostrarMensaje("Bienvenido a la máquina expendedora de boletos.");
-        interfaz.mostrarMensaje("Ingrese su destino:");
-        String destino = interfaz.recibirEntrada();
+        // Mostrar información en la interfaz
+        InterfazUsuario.mostrarMensaje("Destino seleccionado: " + destino);
+        InterfazUsuario.mostrarMensaje("Precio: $" + precio);
 
-        interfaz.mostrarMensaje("Inserte su tarjeta para procesar el pago...");
-        if (lectorTarjeta.validarTarjeta("1234-5678-9012-3456")) {
-            if (procesadorPago.procesarPago(50.0)) {
-                registro.registrarCompra(destino, 50.0);
-                seleccionProducto.seleccionarBoleto(destino);
-                impresora.imprimirBoleto(destino);
-                dispensador.dispensarBoleto(destino);
-                interfaz.mostrarMensaje("Gracias por su compra.");
+        // Validar tarjeta
+        if (LectorTarjeta.validar()) {
+            // Procesar pago
+            if (ProcesadorPago.realizarPago(precio)) {
+                // Imprimir boleto
+                ImpresorBoletos.imprimir(destino);
+                InterfazUsuario.mostrarMensaje("✅ Boleto emitido con éxito. ¡Buen viaje!");
+            } else {
+                InterfazUsuario.mostrarMensaje("⚠ Error en el pago. Inténtalo de nuevo.");
             }
+        } else {
+            InterfazUsuario.mostrarMensaje("⚠ Validación de tarjeta fallida.");
         }
     }
 }

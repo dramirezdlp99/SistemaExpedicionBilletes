@@ -1,6 +1,6 @@
 public class ProcesadorPago {
-    public boolean procesarPago(double monto) {
-        System.out.println("Pago de $" + monto + " procesado exitosamente.");
-        return true;
+    public static boolean realizarPago(double precio) {
+        System.out.println("Procesando el pago de $" + precio + "...");
+        return true;  
     }
 }
